@@ -19,6 +19,7 @@
   "dependencies": {
     "@elysiajs/cors": "^1.4.1",
     "@elysiajs/openapi": "^1.4.14",
+    "@upstash/redis": "^1.36.3",
     "cheerio": "^1.2.0",
     "elysia": "^1.4.27",
     "puppeteer-real-browser": "^1.4.4",
