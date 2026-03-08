@@ -15,7 +15,6 @@ import { proxyRoutes } from "./core/proxyRoutes";
 import { animeRoutes } from "./providers/anime/route";
 import { mangaRoutes } from "./providers/manga/route";
 import { yFlixRoutes } from "./providers/yflix/route";
-import { mangaRoutes } from "./providers/manga/route";
 import { tidalRoutes } from "./providers/tidal/route";
 
 validateConfig();
