@@ -1,6 +1,6 @@
 import { Elysia } from "elysia";
-import { animepaheRoutes } from "./animepahe/route";
 import { animekaiRoutes } from "./animekai/route";
+import { animepaheRoutes } from "./animepahe/route";
 import { toonstreamRoutes } from "./toonstream/route";
 import { animesaltRoutes } from "./animesalt/route";
 
