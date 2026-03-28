@@ -7,11 +7,17 @@ import { runMangaballTests } from "./mangaball";
 // However, to keep it cross-compatible without manual imports in كل file:
 // We use common test syntax.
 
+const { createApp } = await import("../../src/app");
+let app: any;
+
 describe("Provider Integration Tests", () => {
+    beforeAll(async () => {
+        app = await createApp();
+    });
+
     it("should run AnimePahe tests successfully", async () => {
-        // We expect runAnimePaheTests NOT to throw
-        await expect(runAnimePaheTests()).resolves.not.toThrow();
-    }, 30000); // 30s timeout for network requests
+        await expect(runAnimePaheTests(app)).resolves.not.toThrow();
+    }, 30000);
 
     it("should run Mangaball tests successfully", async () => {
         await expect(runMangaballTests()).resolves.not.toThrow();

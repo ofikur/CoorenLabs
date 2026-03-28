@@ -54,16 +54,15 @@ jobs:
 
       - name: Run Tests (Bun)
         if: matrix.runtime == 'bun'
-        run: NODE_ENV=test SERVER_ORIGIN=http://localhost:3007 ENABLE_CACHE=false bun run test:vitest
+        run: NODE_ENV=test bun run test:vitest
 
       - name: Run Tests (Node)
         if: matrix.runtime == 'node'
-        run: NODE_ENV=test SERVER_ORIGIN=http://localhost:3007 ENABLE_CACHE=false npm run test:jest
+        run: NODE_ENV=test npm run test:jest
 
       - name: Run Tests (Deno)
         if: matrix.runtime == 'deno'
-        # Deno can use the vitest or jest suites if configured, but here we'll verify it can run the app/tests
-        run: NODE_ENV=test SERVER_ORIGIN=http://localhost:3007 ENABLE_CACHE=false deno task test || echo "Deno task not found, skipping specific test"
+        run: NODE_ENV=test deno task test || echo "Deno task not found, skipping specific test"
 
   codeql:
     name: CodeQL Analysis

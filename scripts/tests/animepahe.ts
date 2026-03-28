@@ -14,17 +14,34 @@ function isObject(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
 }
 
+let globalApp: any = null;
+
 async function requestJson(endpoint: string): Promise<{ status: number; data: unknown; responseTime: number }> {
   const startedAt = Date.now();
-  const response = await fetch(`${BASE_URL}${endpoint}`);
-  const responseTime = Date.now() - startedAt;
-  let data: unknown = null;
-  try {
-    data = await response.json();
-  } catch {
-    data = { error: "Failed to parse JSON" };
+  let status: number;
+  let data: unknown;
+
+  if (globalApp) {
+    const url = `${BASE_URL}${endpoint}`;
+    const response = await globalApp.handle(new Request(url));
+    status = response.status;
+    try {
+      data = await response.json();
+    } catch {
+      data = { error: "Failed to parse JSON" };
+    }
+  } else {
+    const response = await fetch(`${BASE_URL}${endpoint}`);
+    status = response.status;
+    try {
+      data = await response.json();
+    } catch {
+      data = { error: "Failed to parse JSON" };
+    }
   }
-  return { status: response.status, data, responseTime };
+
+  const responseTime = Date.now() - startedAt;
+  return { status, data, responseTime };
 }
 
 async function runTest(
@@ -58,9 +75,14 @@ async function runTest(
   }
 }
 
-export async function runAnimePaheTests(): Promise<void> {
+export async function runAnimePaheTests(app?: any): Promise<void> {
+  globalApp = app;
   console.log("🧪 Running unified anime API tests (AnimePahe provider)");
-  console.log(`📍 Base URL: ${BASE_URL}`);
+  if (globalApp) {
+    console.log("📍 Test mode: Internal app.handle (No server needed)");
+  } else {
+    console.log(`📍 Base URL: ${BASE_URL}`);
+  }
   console.log("═".repeat(80));
 
   const results: TestResult[] = [];

@@ -31,11 +31,15 @@ const { MOCK_DATA } = require("../../tests/mocks/providers");
 
 // ─── 3. TEST SUITE ────────────────────────────────────────────────────────────
 
+import { describe, it, expect, beforeAll } from "@jest/globals";
+import { createApp } from "../../src/app";
+import { mockProviders } from "../../tests/mocks/providers";
+
 describe("Unified Provider Mock Tests (Jest - Full Coverage)", () => {
-    let app;
+    let app: any;
 
     beforeAll(async () => {
-        // Late import app to ensure mocks are applied when providers are imported inside app.ts
+        // Import app after mocks are set up
         const { createApp } = require("../../src/app");
         app = await createApp();
     });
