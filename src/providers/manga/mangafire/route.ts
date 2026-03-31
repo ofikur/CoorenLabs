@@ -127,7 +127,8 @@ export const mangafireRoutes = new Elysia({ prefix: "/mangafire" })
       detail: {
         tags: ["manga"],
         summary: "MangaFire Chapters",
-        description: "Returns a list of chapters for a given manga ID and language.",
+        description:
+          "Returns a list of chapters. If 'lang' is omitted, returns available languages and chapter counts. If 'lang' is provided (e.g., ?lang=en), returns the chapter list for that language.",
       },
     },
   )
@@ -142,7 +143,8 @@ export const mangafireRoutes = new Elysia({ prefix: "/mangafire" })
       detail: {
         tags: ["manga"],
         summary: "MangaFire Read",
-        description: "Returns direct image URLs for a specific chapter ID.",
+        description:
+          "Returns direct image URLs for a specific chapter ID. Note: Current version primarily supports numeric Chapter IDs.",
       },
     },
   )
@@ -157,7 +159,8 @@ export const mangafireRoutes = new Elysia({ prefix: "/mangafire" })
       detail: {
         tags: ["manga"],
         summary: "MangaFire Volumes",
-        description: "Returns a list of volumes for a given manga ID and language.",
+        description:
+          "Returns a list of volumes for a given manga ID and language. Note: Returns site URL paths which are not currently directly readable via the /read endpoint.",
       },
     },
   );
